@@ -40,17 +40,23 @@ class TimetableBodyPaint extends CustomPainter {
     final itemPosition = offset.dy ~/ itemHeight;
     final dy = ((itemPosition + 1) * itemHeight) - (itemHeight / 2);
 
-    final hour = offset.dx ~/ hourArea;
-    final minute = ((offset.dx / hourArea) * 60) % 60;
+    var hour = offset.dx ~/ hourArea;
+    var minute = ((offset.dx / hourArea) * 60) % 60;
+
+    //condition for range of time below 1 or over 23
+    if (hour == 0) {
+      hour = 1;
+      minute = 0;
+    } else if (hour == 23) {
+      minute = 0;
+    }
+
     final dx = (hour * hourArea) + ((hourArea / 12) * (minute ~/ 5));
     final rect = Rect.fromCenter(
       center: Offset(dx, dy),
       height: TimetableResource.itemHeight,
       width: hourArea * 2,
     );
-
-    print("$hour : $minute");
-    print("$hour : ${(minute ~/ 5) * 5}");
 
     final rRect = RRect.fromRectAndRadius(rect, const Radius.circular(6));
     canvas.drawRRect(rRect, itemPain);
