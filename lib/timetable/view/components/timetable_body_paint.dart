@@ -26,15 +26,33 @@ final class TimetableBodyPaint extends CustomPainter {
       },
     );
 
+    _onDrawCurrentTime(canvas,size);
+
     if (selectedOffset != null) {
       _onDrawSelectedItem(canvas, size, selectedOffset!);
     }
   }
 
+  void _onDrawCurrentTime(Canvas canvas, Size size) {
+    final hourArea = screenWidth / presentWidthRate;
+    final now = DateTime.now();
+    final currentHour = now.hour;
+    final currentMinute = now.minute;
+
+    final dx =
+        (currentHour * hourArea) + ((hourArea / 12) * (currentMinute ~/ 5));
+    final paint = Paint()
+      ..color = Colors.red[700]!
+      ..style = PaintingStyle.fill;
+
+    final rect = Rect.fromPoints(Offset(dx, 0), Offset(dx + 2, size.height));
+    canvas.drawRect(rect, paint);
+  }
+
   void _onDrawSelectedItem(Canvas canvas, Size size, Offset offset) {
     final hourArea = screenWidth / presentWidthRate;
     final itemPain = Paint()
-      ..color = Colors.red
+      ..color = Colors.red[400]!
       ..style = PaintingStyle.fill;
 
     final itemPosition = offset.dy ~/ itemHeight;
