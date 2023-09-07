@@ -1,16 +1,16 @@
 part of 'time_table_cubit.dart';
 
 @immutable
-abstract class TimeTableState {}
+sealed class TimeTableState {}
 
-class TimeTableInitial extends TimeTableState {}
+final class TimeTableInitial extends TimeTableState {}
 
-class TimeTableOrdered extends TimeTableState {
+final class TimeTableOrdered extends TimeTableState {
   TimeTableOrdered(this.selectedOffset);
 
   final Offset selectedOffset;
 }
 
-class TimeTableRemoved extends TimeTableState {}
+final class TimeTableRemoved extends TimeTableState {}
 
 

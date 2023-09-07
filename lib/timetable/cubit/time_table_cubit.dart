@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 part 'time_table_state.dart';
 
-class TimeTableCubit extends Cubit<TimeTableState> {
+final class TimeTableCubit extends Cubit<TimeTableState> {
   TimeTableCubit() : super(TimeTableInitial());
 
   void onTableOrdered(Offset selectedOffset) {

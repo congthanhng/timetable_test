@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timetable_test/timetable/resources.dart';
 import 'package:timetable_test/utils/number_extension.dart';
 
-class TimetableBodyPaint extends CustomPainter {
+final class TimetableBodyPaint extends CustomPainter {
   TimetableBodyPaint({
     required this.items,
     required this.screenWidth,

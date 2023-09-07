@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:timetable_test/timetable/resources.dart';
 import 'package:timetable_test/utils/number_extension.dart';
 
-class TimelineHeaderPaint extends CustomPainter {
+final class TimelineHeaderPaint extends CustomPainter {
   TimelineHeaderPaint({
     required this.screenWidth,
     this.timeMilestoneHeight = TimetableResource.timeMilestoneHeight,
