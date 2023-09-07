@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:timetable_test/counter/counter.dart';
 import 'package:timetable_test/l10n/l10n.dart';
+import 'package:timetable_test/timetable/counter.dart';
+import 'package:timetable_test/timetable/view/timetable_layout.dart';
 
-class CounterPage extends StatelessWidget {
-  const CounterPage({super.key});
+class TimetablePage extends StatelessWidget {
+  const TimetablePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +23,11 @@ class CounterView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.counterAppBarTitle)),
-      body: const Center(child: CounterText()),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().increment(),
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(height: 8),
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().decrement(),
-            child: const Icon(Icons.remove),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text(l10n.counterAppBarTitle),
+        elevation: 0,
       ),
+      body: const TimetableLayout(),
     );
   }
 }
