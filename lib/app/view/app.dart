@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timetable_test/l10n/l10n.dart';
-import 'package:timetable_test/timetable/counter.dart';
+import 'package:timetable_test/timetable/timetable_shelf.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timetable_test/timetable/resources.dart';
+import 'package:timetable_test/utils/number_extension.dart';
 
 class TimelineHeaderPaint extends CustomPainter {
   TimelineHeaderPaint({
@@ -40,7 +41,7 @@ class TimelineHeaderPaint extends CustomPainter {
               hourArea / 12 * index,
               TimetableResource.startTimelineDy -
                   ((index % 6 == 0) ? timeMilestoneHeight : timelineHeight)),
-          '${(index ~/ 12) % 24}:00',
+          '${((index ~/ 12) % 24).padLeftNum()}:00',
         );
       }
 

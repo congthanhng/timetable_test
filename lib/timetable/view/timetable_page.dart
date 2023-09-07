@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timetable_test/l10n/l10n.dart';
-import 'package:timetable_test/timetable/counter.dart';
+import 'package:timetable_test/timetable/cubit/time_table_cubit.dart';
 import 'package:timetable_test/timetable/view/timetable_layout.dart';
 
 class TimetablePage extends StatelessWidget {
@@ -10,7 +10,7 @@ class TimetablePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => CounterCubit(),
+      create: (_) => TimeTableCubit(),
       child: const CounterView(),
     );
   }
@@ -29,16 +29,5 @@ class CounterView extends StatelessWidget {
       ),
       body: const TimetableLayout(),
     );
-  }
-}
-
-class CounterText extends StatelessWidget {
-  const CounterText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final count = context.select((CounterCubit cubit) => cubit.state);
-    return Text('$count', style: theme.textTheme.displayLarge);
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timetable_test/timetable/cubit/time_table_cubit.dart';
 import 'package:timetable_test/timetable/data/mock_data.dart';
 import 'package:timetable_test/timetable/resources.dart';
 import 'package:timetable_test/timetable/view/components/timeline_header_paint.dart';
@@ -86,21 +88,18 @@ class _TimetableLayoutState extends State<TimetableLayout> {
               Expanded(
                 child: Scrollbar(
                   controller: _verScroll,
-                  trackVisibility: true,
-                  thumbVisibility: true,
                   thickness: 0,
                   notificationPredicate: (notification) {
                     _verItemScroll.jumpTo(_verScroll.position.pixels);
                     return notification.depth == 1;
                   },
                   child: ScrollConfiguration(
-                    behavior: const ScrollBehavior().copyWith(overscroll: false),
+                    behavior:
+                        const ScrollBehavior().copyWith(overscroll: false),
                     child: SingleChildScrollView(
                       controller: _verScroll,
                       child: Scrollbar(
                         controller: _horScroll,
-                        trackVisibility: true,
-                        thumbVisibility: true,
                         thickness: 0,
                         notificationPredicate: (notification) {
                           _horTimelineHeaderScroll
@@ -110,15 +109,36 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                         child: SingleChildScrollView(
                           controller: _horScroll,
                           scrollDirection: Axis.horizontal,
-                          child: CustomPaint(
-                            painter: TimetableBodyPaint(
-                                items: listItem,
-                                screenWidth: MediaQuery.sizeOf(context).width),
-                            child: SizedBox(
-                              height:
-                                  listItem.length * TimetableResource.itemHeight,
-                              width: MediaQuery.sizeOf(context).width *
-                                  (24 / TimetableResource.presentWidthRate),
+                          child: GestureDetector(
+                            onTapUp: (details) {
+                              final cubit = context.read<TimeTableCubit>();
+                              if (cubit.state is TimeTableOrdered) {
+                                cubit.onTableRemoved();
+                              } else {
+                                cubit.onTableOrdered(details.localPosition);
+                              }
+                            },
+                            child: BlocBuilder<TimeTableCubit, TimeTableState>(
+                              builder: (context, state) {
+                                Offset? offset;
+                                if (state is TimeTableOrdered) {
+                                  offset = state.selectedOffset;
+                                }
+                                return CustomPaint(
+                                  painter: TimetableBodyPaint(
+                                      selectedOffset: offset,
+                                      items: listItem,
+                                      screenWidth:
+                                          MediaQuery.sizeOf(context).width),
+                                  child: SizedBox(
+                                    height: listItem.length *
+                                        TimetableResource.itemHeight,
+                                    width: MediaQuery.sizeOf(context).width *
+                                        (24 /
+                                            TimetableResource.presentWidthRate),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
