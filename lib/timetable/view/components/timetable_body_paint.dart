@@ -16,28 +16,38 @@ class TimetableBodyPaint extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    List.generate(items.length,(index) {
-      _onDrawItem(canvas, size, index);
-    },);
+    List.generate(
+      items.length,
+      (index) {
+        _onDrawItem(canvas, size, index);
+      },
+    );
   }
 
   void _onDrawItem(Canvas canvas, Size size, int itemPosition) {
     final hourArea = screenWidth / presentWidthRate;
     final itemPain = Paint()
+      ..color = itemPosition.isOdd ? Colors.grey[200]! : Colors.white
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 2;
+
+    final itemStokePain = Paint()
       ..color = Colors.grey[400]!
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
 
     for (final element in List.generate(24, (index) {
       return Rect.fromPoints(
-        Offset(hourArea * index + 1, 0),
+        Offset(hourArea * index + 1, itemHeight * itemPosition),
         Offset(
           hourArea * index + hourArea + 1,
           itemHeight * (itemPosition + 1),
         ),
       );
     })) {
-      canvas.drawRect(element, itemPain);
+      canvas
+        ..drawRect(element, itemPain)
+        ..drawRect(element, itemStokePain);
     }
   }
 
