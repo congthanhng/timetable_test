@@ -38,7 +38,7 @@ class _TimetableLayoutState extends State<TimetableLayout> {
             ),
             Expanded(
               child: SizedBox(
-                height: listItem.length * TimetableResource.itemHeight,
+                height: tableMockList.length * TimetableResource.itemHeight,
                 width: MediaQuery.sizeOf(context).width /
                     TimetableResource.presentWidthRate,
                 child: ListView.builder(
@@ -58,11 +58,11 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                         TimetableResource.presentWidthRate,
                     height: TimetableResource.itemHeight,
                     child: Center(
-                      child: Text('Table ${listItem[index]}',
+                      child: Text('Table ${tableMockList[index]}',
                           textAlign: TextAlign.center),
                     ),
                   ),
-                  itemCount: listItem.length,
+                  itemCount: tableMockList.length,
                 ),
               ),
             ),
@@ -127,11 +127,11 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                                 return CustomPaint(
                                   painter: TimetableBodyPaint(
                                       selectedOffset: offset,
-                                      items: listItem,
+                                      items: tableMockList,
                                       screenWidth:
                                           MediaQuery.sizeOf(context).width),
                                   child: SizedBox(
-                                    height: listItem.length *
+                                    height: tableMockList.length *
                                         TimetableResource.itemHeight,
                                     width: MediaQuery.sizeOf(context).width *
                                         (24 /

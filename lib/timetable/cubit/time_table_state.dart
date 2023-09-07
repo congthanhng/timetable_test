@@ -12,5 +12,3 @@ final class TimeTableOrdered extends TimeTableState {
 }
 
 final class TimeTableRemoved extends TimeTableState {}
-
-
