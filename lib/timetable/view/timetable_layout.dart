@@ -21,6 +21,13 @@ class _TimetableLayoutState extends State<TimetableLayout> {
 
   @override
   Widget build(BuildContext context) {
+    //simple responsive
+    final sWidth = MediaQuery.sizeOf(context).width;
+    final sHeight = MediaQuery.sizeOf(context).height;
+    final presentWidthRate = (sWidth / sHeight) < 1.0
+        ? TimetableResource.presentWidthRate
+        : TimetableResource.presentBigWidthRate;
+
     return Row(
       children: [
         Column(
@@ -31,16 +38,14 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                 color: Colors.deepOrange[200],
                 border: Border(right: BorderSide(color: Colors.grey[400]!)),
               ),
-              width: MediaQuery.sizeOf(context).width /
-                  TimetableResource.presentWidthRate,
+              width: MediaQuery.sizeOf(context).width / presentWidthRate,
               height: TimetableResource.startTimelineDy,
               child: const Center(child: Text('Table (Timeline)')),
             ),
             Expanded(
               child: SizedBox(
                 height: tableMockList.length * TimetableResource.itemHeight,
-                width: MediaQuery.sizeOf(context).width /
-                    TimetableResource.presentWidthRate,
+                width: MediaQuery.sizeOf(context).width / presentWidthRate,
                 child: ListView.builder(
                   controller: _verItemScroll,
                   physics: const NeverScrollableScrollPhysics(),
@@ -54,12 +59,13 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                       border:
                           Border(right: BorderSide(color: Colors.grey[400]!)),
                     ),
-                    width: MediaQuery.sizeOf(context).width /
-                        TimetableResource.presentWidthRate,
+                    width: MediaQuery.sizeOf(context).width / presentWidthRate,
                     height: TimetableResource.itemHeight,
                     child: Center(
-                      child: Text('Table ${tableMockList[index]}',
-                          textAlign: TextAlign.center),
+                      child: Text(
+                        'Table ${tableMockList[index]}',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                   itemCount: tableMockList.length,
@@ -77,11 +83,12 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                 physics: const NeverScrollableScrollPhysics(),
                 child: CustomPaint(
                   painter: TimelineHeaderPaint(
-                      screenWidth: MediaQuery.sizeOf(context).width),
+                      presentWidthRate: presentWidthRate,
+                      screenWidth: MediaQuery.sizeOf(context).width,),
                   child: SizedBox(
                     height: TimetableResource.startTimelineDy,
                     width: MediaQuery.sizeOf(context).width *
-                        (24 / TimetableResource.presentWidthRate),
+                        (24 / presentWidthRate),
                   ),
                 ),
               ),
@@ -126,6 +133,7 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                                 }
                                 return CustomPaint(
                                   painter: TimetableBodyPaint(
+                                      presentWidthRate: presentWidthRate,
                                       selectedOffset: offset,
                                       items: tableMockList,
                                       screenWidth:
@@ -134,8 +142,7 @@ class _TimetableLayoutState extends State<TimetableLayout> {
                                     height: tableMockList.length *
                                         TimetableResource.itemHeight,
                                     width: MediaQuery.sizeOf(context).width *
-                                        (24 /
-                                            TimetableResource.presentWidthRate),
+                                        (24 / presentWidthRate),
                                   ),
                                 );
                               },

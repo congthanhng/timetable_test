@@ -38,9 +38,10 @@ final class TimelineHeaderPaint extends CustomPainter {
           canvas,
           size,
           Offset(
-              hourArea / 12 * index,
-              TimetableResource.startTimelineDy -
-                  ((index % 6 == 0) ? timeMilestoneHeight : timelineHeight)),
+            hourArea / 12 * index,
+            TimetableResource.startTimelineDy -
+                ((index % 6 == 0) ? timeMilestoneHeight : timelineHeight),
+          ),
           '${((index ~/ 12) % 24).padLeftNum()}:00',
         );
       }
